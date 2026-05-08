@@ -8,7 +8,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/profile", {
+        const response = await axios.get("http://localhost:5001/profile", {
           withCredentials: true,
         });
         setUser(response.data);
@@ -20,18 +20,28 @@ const Profile = () => {
     };
     fetchProfile();
   }, []);
-  if (loading) return <p>Loading ...</p>;
+  if (loading) return <div
+        style={{
+          width: "80px",
+          height: "80px",
+          backgroundColor: "#ccc",
+          borderRadius: "50%",
+          marginBottom: "15px",
+        }}
+      ></div>;
   if (!user) return <p>Not logged in.</p>;
   return (
     <div>
       <h2>Hello {user.given_name || user.name}</h2>
+      <h2>User Email address is:- {user.email}</h2>
       {user.picture && (
         <img
           src={user.picture}
           alt={user.name}
-          style={{ width: 80, borderRadius: "50" }}
+          style={{ width: 80, borderRadius: "50%" }}
         />
       )}
+      
     </div>
   );
 };
